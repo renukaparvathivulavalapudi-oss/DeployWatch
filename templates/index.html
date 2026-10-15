@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DeployWatch Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 35px;
+            background: #f4f7fb;
+            color: #172033;
+        }
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            margin-bottom: 22px;
+            box-shadow: 0 2px 8px #00000010;
+        }
+        input {
+            width: 65%;
+            padding: 11px;
+            border: 1px solid #ccd3df;
+            border-radius: 6px;
+        }
+        button {
+            padding: 11px 18px;
+            background: #2457d6;
+            color: white;
+            border: 0;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+            overflow-wrap: anywhere;
+        }
+        th { background: #edf2fa; }
+        .up { color: green; font-weight: bold; }
+        .down { color: #d12d38; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>DeployWatch</h1>
+    <p>Application Health and Deployment Monitoring</p>
+
+    <div class="card">
+        <h2>Check an Application</h2>
+        <form action="/check" method="post">
+            <input
+                type="url"
+                name="url"
+                placeholder="https://example.com"
+                required
+            >
+            <button type="submit">Check Health</button>
+        </form>
+        <p>Tip: Try https://example.com or http://localhost:5000/health</p>
+    </div>
+
+    <div class="card">
+        <h2>Monitoring History</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>URL</th>
+                    <th>Status</th>
+                    <th>HTTP Code</th>
+                    <th>Response Time (ms)</th>
+                    <th>Checked At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in history %}
+                <tr>
+                    <td>{{ item["url"] }}</td>
+                    <td class="{{ item['status']|lower }}">
+                        {{ item["status"] }}
+                    </td>
+                    <td>{{ item["http_code"] or "N/A" }}</td>
+                    <td>{{ item["response_time"] }}</td>
+                    <td>{{ item["checked_at"] }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5">No checks yet. Submit a URL above.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
