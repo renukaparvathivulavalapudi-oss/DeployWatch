@@ -11,8 +11,8 @@ pipeline {
 
         stage('Setup Python') {
             steps {
-                bat '"C:\\Users\\IIIT\\AppData\\Local\\Programs\\Python\\Python312\\python.exe" --version'
-                bat '"C:\\Users\\IIIT\\AppData\\Local\\Programs\\Python\\Python312\\python.exe" -m venv venv'
+                bat '"C:\\Users\\TempAdmin\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" --version'
+                bat '"C:\\Users\\TempAdmin\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m venv venv'
             }
         }
 
